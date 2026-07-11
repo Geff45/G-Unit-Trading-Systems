@@ -1,0 +1,23 @@
+{
+    "project": {
+        "name": "G-Unit Trading Systems",
+        "short_name": "GUTS",
+        "engine": "ATLAS",
+        "platform": "MT4",
+        "version": "0.1.0-alpha",
+        "build": 1
+    },
+
+    "toolkit": {
+        "name": "GUTS Developer Toolkit",
+        "version": "0.1.0-alpha"
+    },
+
+    "developer": {
+        "author": "Geoffrey Ndungu"
+    },
+
+    "modules": [
+
+    ]
+}
