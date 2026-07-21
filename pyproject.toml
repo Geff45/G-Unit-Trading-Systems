@@ -1,0 +1,66 @@
+[build-system]
+requires = ["setuptools>=75", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "g-unit-platform"
+version = "0.1.0"
+description = "G-UNIT Enterprise Platform"
+readme = "README.md"
+requires-python = ">=3.12"
+
+authors = [
+    { name = "G-UNIT Engineering Team" }
+]
+
+dependencies = [
+    "PyYAML>=6.0",
+    "rich>=14.0",
+    "typer>=0.16"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.3",
+    "pytest-cov>=7.0",
+    "ruff>=0.12",
+    "black>=25.0",
+    "mypy>=1.17"
+]
+
+[tool.black]
+line-length = 88
+target-version = ["py312"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py312"
+
+[tool.ruff.lint]
+select = [
+    "E",
+    "F",
+    "I",
+    "N",
+    "UP",
+    "B"
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+addopts = "-ra"
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+ignore_missing_imports = true
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+include = [
+    "gunit",
+    "gunit.*"
+]

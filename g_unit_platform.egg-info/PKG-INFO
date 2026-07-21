@@ -1,0 +1,18 @@
+Metadata-Version: 2.4
+Name: g-unit-platform
+Version: 0.1.0
+Summary: G-UNIT Enterprise Platform
+Author: G-UNIT Engineering Team
+Requires-Python: >=3.12
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: PyYAML>=6.0
+Requires-Dist: rich>=14.0
+Requires-Dist: typer>=0.16
+Provides-Extra: dev
+Requires-Dist: pytest>=8.3; extra == "dev"
+Requires-Dist: pytest-cov>=7.0; extra == "dev"
+Requires-Dist: ruff>=0.12; extra == "dev"
+Requires-Dist: black>=25.0; extra == "dev"
+Requires-Dist: mypy>=1.17; extra == "dev"
+Dynamic: license-file

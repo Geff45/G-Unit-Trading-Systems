@@ -1,0 +1,18 @@
+system:
+  name: Atlas
+  version: 1.0.0
+  environment: development
+
+runtime:
+  heartbeat_ms: 1000
+  max_workers: 8
+
+logging:
+  level: INFO
+
+security:
+  encryption: true
+  signed_configs: false
+
+trading:
+  mode: demo

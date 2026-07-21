@@ -1,0 +1,3 @@
+"""
+Atlas Forge Core
+"""

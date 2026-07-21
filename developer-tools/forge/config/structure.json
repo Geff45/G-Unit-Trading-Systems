@@ -1,0 +1,90 @@
+{
+    "version": "2.1.0",
+
+    "directories": [
+
+        "developer-tools",
+
+        "developer-tools/forge",
+
+        "developer-tools/forge/cache",
+        "developer-tools/forge/logs",
+        "developer-tools/forge/plugins",
+        "developer-tools/forge/reports",
+        "developer-tools/forge/templates",
+        "developer-tools/forge/tests",
+        "developer-tools/forge/utils",
+        "developer-tools/forge/workspace",
+
+        "developer-tools/forge/config",
+        "developer-tools/forge/database",
+        "developer-tools/forge/metadata",
+
+        "developer-tools/forge/core",
+
+        "developer-tools/forge/core/engine",
+
+        "developer-tools/forge/core/models",
+
+        "developer-tools/forge/core/services",
+
+        "developer-tools/forge/core/services/base",
+
+        "developer-tools/forge/core/services/logger",
+
+        "developer-tools/forge/core/services/context",
+
+        "developer-tools/forge/core/services/settings",
+
+        "developer-tools/forge/core/services/database",
+
+        "developer-tools/forge/core/services/manager"
+    ],
+
+    "files": [
+
+        "developer-tools/forge/README.md",
+
+        "developer-tools/forge/VERSION",
+
+        "developer-tools/forge/forge.py",
+
+        "developer-tools/forge/config/forge.json",
+
+        "developer-tools/forge/config/defaults.json",
+
+        "developer-tools/forge/core/engine/__init__.py",
+        "developer-tools/forge/core/engine/engine.py",
+        "developer-tools/forge/core/engine/events.py",
+        "developer-tools/forge/core/engine/lifecycle.py",
+        "developer-tools/forge/core/engine/service_container.py",
+
+        "developer-tools/forge/core/models/__init__.py",
+
+        "developer-tools/forge/core/services/__init__.py",
+
+        "developer-tools/forge/core/services/base/__init__.py",
+        "developer-tools/forge/core/services/base/base_service.py",
+
+        "developer-tools/forge/core/services/logger/__init__.py",
+        "developer-tools/forge/core/services/logger/logger_service.py",
+
+        "developer-tools/forge/core/services/context/__init__.py",
+        "developer-tools/forge/core/services/context/context_service.py",
+
+        "developer-tools/forge/core/services/settings/__init__.py",
+        "developer-tools/forge/core/services/settings/settings_service.py",
+
+        "developer-tools/forge/core/services/database/__init__.py",
+        "developer-tools/forge/core/services/database/project_database_service.py",
+
+        "developer-tools/forge/core/services/manager/__init__.py",
+        "developer-tools/forge/core/services/manager/service_manager.py",
+
+        "developer-tools/forge/database/project.json",
+        "developer-tools/forge/database/modules.json",
+        "developer-tools/forge/database/dependencies.json",
+        "developer-tools/forge/database/snapshots.json",
+        "developer-tools/forge/database/history.json"
+    ]
+}
