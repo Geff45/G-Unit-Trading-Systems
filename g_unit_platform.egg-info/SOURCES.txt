@@ -19,6 +19,9 @@ gunit/container/dependency_resolver.py
 gunit/container/service_container.py
 gunit/container/service_descriptor.py
 gunit/core/__init__.py
+gunit/core/container/__init__.py
+gunit/core/container/lifetime.py
+gunit/core/container/service_container.py
 gunit/core/contracts/__init__.py
 gunit/core/contracts/service_contract.py
 gunit/core/enums/__init__.py
@@ -31,6 +34,9 @@ gunit/core/models/__init__.py
 gunit/core/models/health.py
 gunit/core/models/service_descriptor.py
 gunit/core/models/version.py
+gunit/core/registry/__init__.py
+gunit/core/registry/descriptor.py
+gunit/core/registry/service_registry.py
 gunit/core/utilities/__init__.py
 gunit/diagnostics/__init__.py
 gunit/diagnostics/health_monitor.py
