@@ -1,60 +1,45 @@
 [build-system]
-requires = ["setuptools>=75", "wheel"]
+requires = ["setuptools>=75.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "g-unit-platform"
-version = "0.1.0"
-description = "G-UNIT Enterprise Platform"
+version = "0.1.0-alpha"
+description = "G-Unit Trading Systems Platform"
 readme = "README.md"
 requires-python = ">=3.12"
-
+license = { text = "Proprietary" }
 authors = [
-    { name = "G-UNIT Engineering Team" }
+    { name = "G-Unit Trading Systems" }
 ]
 
 dependencies = [
     "PyYAML>=6.0",
     "rich>=14.0",
-    "typer>=0.16"
+    "typer>=0.17",
+    "pydantic>=2.11",
+]
+
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Operating System :: OS Independent",
 ]
 
 [project.optional-dependencies]
 dev = [
-    "pytest>=8.3",
+    "pytest>=8.4",
     "pytest-cov>=7.0",
     "ruff>=0.12",
     "black>=25.0",
-    "mypy>=1.17"
+    "mypy>=1.17",
 ]
 
-[tool.black]
-line-length = 88
-target-version = ["py312"]
-
-[tool.ruff]
-line-length = 88
-target-version = "py312"
-
-[tool.ruff.lint]
-select = [
-    "E",
-    "F",
-    "I",
-    "N",
-    "UP",
-    "B"
-]
-
-[tool.pytest.ini_options]
-testpaths = ["tests"]
-python_files = ["test_*.py"]
-addopts = "-ra"
-
-[tool.mypy]
-python_version = "3.12"
-strict = true
-ignore_missing_imports = true
+# Console commands
+[project.scripts]
+forge = "tools.forge:main"
 
 [tool.setuptools]
 include-package-data = true
@@ -62,5 +47,39 @@ include-package-data = true
 [tool.setuptools.packages.find]
 include = [
     "gunit",
-    "gunit.*"
+    "gunit.*",
+    "forge",
+    "forge.*",
+    "tools",
+    "tools.*",
 ]
+
+[tool.black]
+line-length = 100
+target-version = ["py312"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.pytest.ini_options]
+minversion = "8.0"
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "-ra"
+
+[tool.coverage.run]
+source = ["gunit", "forge", "tools"]
+
+[tool.coverage.report]
+show_missing = true
+skip_empty = true
+
+[tool.mypy]
+python_version = "3.12"
+strict = false
+warn_return_any = true
+warn_unused_configs = true
+ignore_missing_imports = true

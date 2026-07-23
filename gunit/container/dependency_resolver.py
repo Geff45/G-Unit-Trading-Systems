@@ -1,124 +1,44 @@
 """
-G-UNIT Platform Kernel
-
-Dependency Resolver
-
-Responsible for analysing service
-dependencies and resolving startup order.
+Dependency Resolver.
 """
 
+from __future__ import annotations
 
-from typing import Dict, List
-
-from .service_descriptor import ServiceDescriptor
-
+from typing import Any
 
 
 class DependencyResolver:
     """
-    Resolves dependencies between services.
+    Resolves dependencies from the service container.
     """
 
+    def __init__(self, container: Any) -> None:
+        self._container = container
 
-    def __init__(self):
+    def resolve(self, service_type: type) -> Any:
+        return self._container.resolve(service_type)
 
-        self.services: Dict[str, ServiceDescriptor] = {}
+    def resolve_all(self, service_types: list[type]) -> list[Any]:
+        resolved: list[Any] = []
 
-
-
-    def register(
-        self,
-        descriptor: ServiceDescriptor
-    ):
-        """
-        Add service descriptor.
-        """
-
-        self.services[
-            descriptor.name
-        ] = descriptor
-
-
-
-    def resolve(
-        self,
-        service_name: str
-    ) -> List[str]:
-        """
-        Return ordered dependency list.
-        """
-
-        if service_name not in self.services:
-            raise Exception(
-                f"Unknown service: {service_name}"
-            )
-
-
-        resolved = []
-
-        visited = set()
-
-        self._resolve_recursive(
-            service_name,
-            visited,
-            resolved
-        )
-
+        for service in service_types:
+            resolved.append(self.resolve(service))
 
         return resolved
 
-
-
-    def _resolve_recursive(
-        self,
-        name,
-        visited,
-        resolved
-    ):
-
-        if name in visited:
-            return
-
-
-        visited.add(name)
-
-
-        service = self.services[name]
-
-
-        for dependency in service.dependencies:
-
-            if dependency not in self.services:
-
-                raise Exception(
-                    f"Missing dependency: {dependency}"
-                )
-
-
-            self._resolve_recursive(
-                dependency,
-                visited,
-                resolved
-            )
-
-
-        resolved.append(name)
-
-
-
-    def dependency_tree(
-        self
-    ):
+    def dependency_graph(self) -> list[str]:
         """
-        Return complete dependency map.
+        Placeholder for future dependency graph generation.
         """
 
-        tree = {}
+        resolved: list[str] = []
+        visited: set[str] = set()
 
+        for service in getattr(self._container, "_services", {}):
+            name = str(service)
 
-        for name, service in self.services.items():
+            if name not in visited:
+                visited.add(name)
+                resolved.append(name)
 
-            tree[name] = service.dependencies
-
-
-        return tree
+        return resolved

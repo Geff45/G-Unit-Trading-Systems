@@ -1,134 +1,42 @@
 """
-G-UNIT Platform Kernel
-
 Capability Registry
-
-Manages intelligence domains and platform abilities.
 """
 
-
-from typing import Dict, List, Optional
-
-
-
-class CapabilityDescriptor:
-    """
-    Defines a platform capability.
-    """
-
-
-    def __init__(
-        self,
-        name: str,
-        version: str,
-        provider: str,
-        description: str = "",
-        services: List[str] = None
-    ):
-
-        self.name = name
-
-        self.version = version
-
-        self.provider = provider
-
-        self.description = description
-
-        self.services = services or []
-
-
-
-    def info(self):
-
-        return {
-
-            "name": self.name,
-
-            "version": self.version,
-
-            "provider": self.provider,
-
-            "description": self.description,
-
-            "services": self.services
-
-        }
-
+from __future__ import annotations
 
 
 class CapabilityRegistry:
     """
-    Stores and discovers platform capabilities.
+    Stores capabilities provided by services.
     """
 
-
-    def __init__(self):
-
-        self._capabilities: Dict[
-            str,
-            CapabilityDescriptor
-        ] = {}
-
-
+    def __init__(self) -> None:
+        self._capabilities: dict[str, list[str]] = {}
 
     def register(
         self,
-        capability: CapabilityDescriptor
-    ):
+        name: str,
+        services: list[str] | None = None,
+    ) -> None:
+        self._capabilities[name] = services or []
 
-        name = capability.name
+    def unregister(self, name: str) -> None:
+        self._capabilities.pop(name, None)
 
-
-        if name in self._capabilities:
-
-            raise Exception(
-                f"Capability already registered: {name}"
-            )
-
-
-        self._capabilities[name] = capability
-
-
-
-    def find(
-        self,
-        name: str
-    ) -> Optional[CapabilityDescriptor]:
-
-        return self._capabilities.get(
-            name
-        )
-
-
-
-    def exists(
-        self,
-        name: str
-    ) -> bool:
-
+    def exists(self, name: str) -> bool:
         return name in self._capabilities
 
+    def get(self, name: str) -> list[str]:
+        return self._capabilities.get(name, [])
 
+    def names(self) -> list[str]:
+        return sorted(self._capabilities.keys())
 
-    def list_all(self):
+    def clear(self) -> None:
+        self._capabilities.clear()
 
-        return list(
-            self._capabilities.keys()
-        )
+    def __contains__(self, item: str) -> bool:
+        return self.exists(item)
 
-
-
-    def describe(
-        self,
-        name: str
-    ):
-
-        capability = self.find(name)
-
-
-        if not capability:
-
-            return None
-
-
-        return capability.info()
+    def __len__(self) -> int:
+        return len(self._capabilities)

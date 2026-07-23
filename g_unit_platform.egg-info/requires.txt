@@ -1,9 +1,10 @@
 PyYAML>=6.0
 rich>=14.0
-typer>=0.16
+typer>=0.17
+pydantic>=2.11
 
 [dev]
-pytest>=8.3
+pytest>=8.4
 pytest-cov>=7.0
 ruff>=0.12
 black>=25.0
