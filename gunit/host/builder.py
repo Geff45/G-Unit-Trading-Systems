@@ -1,53 +1,39 @@
-"""
-Host Builder.
-"""
+﻿from __future__ import annotations
 
-from __future__ import annotations
-
-from gunit.container.service_container import ServiceContainer
-
-from .defaults import HostDefaults
-from .host import Host
-from .options import HostOptions
+from gunit.di import ServiceCollection
+from gunit.host.defaults import HostDefaults
+from gunit.host.host import Host
+from gunit.host.options import HostOptions
 
 
 class HostBuilder:
     """
-    Builds a Host instance.
+    Builds a Host using the authoritative G-Unit dependency-injection system.
     """
 
     def __init__(self) -> None:
-
-        self._services = ServiceContainer()
-
+        self._services = ServiceCollection()
         self._options = HostDefaults.create()
 
     @property
-    def services(self) -> ServiceContainer:
+    def services(self) -> ServiceCollection:
         return self._services
 
     @property
     def options(self) -> HostOptions:
         return self._options
 
-    def use_options(
-        self,
-        options: HostOptions,
-    ) -> "HostBuilder":
-
-        self._options = options
-
+    def use_defaults(self) -> HostBuilder:
+        self._options = HostDefaults.create()
         return self
 
-    def use_defaults(self) -> "HostBuilder":
-
-        self._options = HostDefaults.create()
-
+    def use_options(self, options: HostOptions) -> HostBuilder:
+        self._options = options
         return self
 
     def build(self) -> Host:
-
+        provider = self._services.build_provider()
         return Host(
-            services=self._services,
+            provider=provider,
             options=self._options,
         )

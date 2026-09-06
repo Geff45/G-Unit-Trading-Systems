@@ -1,10 +1,11 @@
-from forge.console import Console
-from forge import __version__
+﻿from forge.commands.version_command import VersionCommand
 
 
 def execute():
-    """
-    Display the installed Forge version.
-    """
-    Console.banner()
-    Console.success(f"Forge Version {__version__}")
+
+    return VersionCommand().execute({})
+
+
+__all__ = [
+    "VersionCommand",
+]

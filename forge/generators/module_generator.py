@@ -1,4 +1,8 @@
 from .base_generator import BaseGenerator
+from .naming import (
+    validate_class_name,
+    validate_module_name,
+)
 
 
 class ModuleGenerator(BaseGenerator):
@@ -9,8 +13,11 @@ class ModuleGenerator(BaseGenerator):
         module_name: str,
     ):
         """
-        Generates a G-Unit module and its test.
+        Generate a G-Unit module and its unit test.
         """
+
+        validate_class_name(class_name)
+        validate_module_name(module_name)
 
         module_code = self.templates.render(
             "module.py.tpl",

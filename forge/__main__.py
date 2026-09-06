@@ -1,6 +1,5 @@
-﻿from forge.cli import main
+﻿from forge.cli.main import main
 
 
 if __name__ == "__main__":
-
-    main()
+    raise SystemExit(main())

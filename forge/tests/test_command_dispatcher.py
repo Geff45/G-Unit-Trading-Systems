@@ -1,28 +1,14 @@
-from forge.framework import (
-    Command,
-    CommandContext,
-    CommandDispatcher,
-    CommandResult,
-)
+from forge.framework import CommandDispatcher
 
 
-class DemoCommand(Command):
-
-    name = "demo"
-
-    def execute(self, context):
-
-        return CommandResult.ok("dispatcher")
-
-
-def test_dispatcher():
+def test_unknown_command_preserves_name():
 
     dispatcher = CommandDispatcher()
 
     result = dispatcher.dispatch(
-        DemoCommand(),
-        CommandContext(),
+        "banana",
+        {},
     )
 
-    assert result.success
-    assert result.message == "dispatcher"
+    assert result.success is False
+    assert result.message == "Unknown command: banana"

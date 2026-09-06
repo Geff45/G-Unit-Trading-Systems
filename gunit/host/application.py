@@ -1,35 +1,31 @@
-"""
-Application object.
-"""
+﻿from __future__ import annotations
 
-from __future__ import annotations
-
-from gunit.container.service_container import ServiceContainer
-
-from .environment import ApplicationEnvironment
-from .options import HostOptions
+from gunit.di import ServiceProvider
+from gunit.host.options import HostOptions
+from gunit.host.environment import ApplicationEnvironment
 
 
 class Application:
     """
-    Represents a running G-Unit application.
+    Application runtime context backed by the authoritative DI provider.
     """
 
     def __init__(
         self,
-        services: ServiceContainer,
+        provider: ServiceProvider,
         options: HostOptions,
     ) -> None:
-
-        self._services = services
+        self._provider = provider
         self._options = options
-        self._environment = ApplicationEnvironment(
-            options.environment
-        )
+        self._environment = ApplicationEnvironment(options.environment)
 
     @property
-    def services(self) -> ServiceContainer:
-        return self._services
+    def provider(self) -> ServiceProvider:
+        return self._provider
+
+    @property
+    def services(self) -> ServiceProvider:
+        return self._provider
 
     @property
     def options(self) -> HostOptions:

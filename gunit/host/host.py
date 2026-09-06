@@ -1,10 +1,10 @@
-"""
+﻿"""
 Application host.
 """
 
 from __future__ import annotations
 
-from gunit.container.service_container import ServiceContainer
+from gunit.di import ServiceProvider
 
 from .application import Application
 from .hosted_service import HostedService
@@ -16,17 +16,19 @@ from .startup import StartupPipeline
 
 class Host:
     """
-    Main application host.
+    Main application host backed by the authoritative DI provider.
     """
 
     def __init__(
         self,
-        services: ServiceContainer,
+        provider: ServiceProvider,
         options: HostOptions,
     ) -> None:
 
+        self._provider = provider
+
         self._application = Application(
-            services=services,
+            provider=provider,
             options=options,
         )
 
@@ -44,8 +46,12 @@ class Host:
         return self._application
 
     @property
-    def services(self) -> ServiceContainer:
-        return self._application.services
+    def provider(self) -> ServiceProvider:
+        return self._provider
+
+    @property
+    def services(self) -> ServiceProvider:
+        return self._provider
 
     @property
     def options(self) -> HostOptions:
@@ -67,12 +73,25 @@ class Host:
     def running(self) -> bool:
         return self._lifetime.started
 
+    def create_scope(self):
+        return self._provider.create_scope()
+
     def add_service(
         self,
         service: HostedService,
     ) -> None:
         """
         Adds a hosted service.
+        """
+
+        self._service_manager.add(service)
+
+    def add_hosted_service(
+        self,
+        service: HostedService,
+    ) -> None:
+        """
+        Adds a DI-resolved hosted service to the host lifecycle.
         """
 
         self._service_manager.add(service)

@@ -1,8 +1,7 @@
-import pytest
-
 from forge.generators import (
     GeneratorFactory,
     ModuleGenerator,
+    ServiceGenerator,
 )
 
 
@@ -20,8 +19,25 @@ def test_factory():
 
 def test_unknown_generator():
 
-    with pytest.raises(ValueError):
-
+    try:
         GeneratorFactory.create(
             "unknown"
         )
+    except ValueError as exc:
+        assert "Unknown generator" in str(exc)
+    else:
+        raise AssertionError(
+            "Expected ValueError for unknown generator"
+        )
+
+
+def test_service_generator_factory():
+
+    generator = GeneratorFactory.create(
+        "service"
+    )
+
+    assert isinstance(
+        generator,
+        ServiceGenerator,
+    )

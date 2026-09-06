@@ -1,9 +1,12 @@
-from .make import execute as make
-from .version import execute as version
-from .doctor import execute as doctor
+﻿from .version_command import VersionCommand
+from .doctor_command import DoctorCommand
+from .make_command import MakeCommand
+from .new_command import NewCommand
+
 
 __all__ = [
-    "make",
-    "version",
-    "doctor",
+    "VersionCommand",
+    "DoctorCommand",
+    "MakeCommand",
+    "NewCommand",
 ]

@@ -1,23 +1,26 @@
-from forge.console import Console
-from forge.generators import GeneratorFactory
+﻿from pathlib import Path
+
+from forge.commands.make_command import MakeCommand
+from forge.framework import CommandContext
 
 
-def execute(generator_name, class_name):
+def execute(*args):
+    """
+    Execute the make command from the current working directory.
 
-    module_name = (
-        class_name
-        .replace(" ", "_")
-        .lower()
+    This helper is primarily used by the public Forge command API
+    and by tests that change the process working directory.
+    """
+
+    return MakeCommand().run(
+        CommandContext(
+            args=list(args),
+            working_directory=str(Path.cwd()),
+        )
     )
 
-    generator = GeneratorFactory.create("module")
 
-    result = generator.generate(
-        class_name=class_name,
-        module_name=module_name,
-    )
-
-    Console.success("Generation completed.")
-    Console.write("")
-    Console.write(result["module"])
-    Console.write(result["test"])
+__all__ = [
+    "MakeCommand",
+    "execute",
+]

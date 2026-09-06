@@ -1,22 +1,27 @@
-﻿from __future__ import annotations
-
-from .command import Command
-from .command_context import CommandContext
-from .command_result import CommandResult
+﻿from forge.framework.command_registry import CommandRegistry
+from forge.framework.command_result import CommandResult
+from forge.framework.command import Command
 
 
 class CommandDispatcher:
-    """
-    Dispatches Forge commands.
-    """
 
-    def dispatch(
-        self,
-        command: Command,
-        context: CommandContext,
-    ) -> CommandResult:
+    def __init__(self, registry=None):
+        self.registry = registry or CommandRegistry()
 
-        return command.run(context)
+    def dispatch(self, command, context):
 
+        if isinstance(command, str):
 
-__all__ = ["CommandDispatcher"]
+            command_name = command
+
+            command = self.registry.get(command_name)
+
+            if command is None:
+                return CommandResult.fail(
+                    f"Unknown command: {command_name}"
+                )
+
+        if isinstance(command, Command):
+            return command.run(context)
+
+        return command.execute(context)

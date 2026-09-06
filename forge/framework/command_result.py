@@ -1,30 +1,38 @@
-from __future__ import annotations
-
-from dataclasses import dataclass
-from typing import Any
+﻿from dataclasses import dataclass
 
 
-@dataclass(slots=True)
+@dataclass
 class CommandResult:
-    """
-    Represents the result of a Forge command.
-    """
 
-    success: bool = True
-    message: str = ""
-    data: Any = None
+    success: bool
+    message: str
+    data: object = None
+
 
     @classmethod
-    def ok(cls, message: str = "", data: Any = None):
+    def ok(cls, message, data=None):
+
         return cls(
-            success=True,
-            message=message,
-            data=data,
+            True,
+            message,
+            data
         )
 
+
     @classmethod
-    def fail(cls, message: str):
+    def success_result(cls, message, data=None):
+
+        return cls.ok(
+            message,
+            data
+        )
+
+
+    @classmethod
+    def fail(cls, message):
+
         return cls(
-            success=False,
-            message=message,
+            False,
+            message,
+            None
         )

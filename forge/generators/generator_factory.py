@@ -1,25 +1,27 @@
 from .module_generator import ModuleGenerator
+from .service_generator import ServiceGenerator
+from .plugin_generator import PluginGenerator
 
 
 class GeneratorFactory:
 
-    _generators = {
-        "module": ModuleGenerator,
-    }
+    @staticmethod
+    def create(generator_type, project_root="."):
+        """
+        Create a generator for the requested component type.
+        """
 
-    @classmethod
-    def create(
-        cls,
-        generator_type: str,
-        project_root=".",
-    ):
-        generator_type = generator_type.lower()
+        generator_type = str(generator_type).strip().lower()
 
-        if generator_type not in cls._generators:
-            raise ValueError(
-                f"Unknown generator '{generator_type}'."
-            )
+        if generator_type == "module":
+            return ModuleGenerator(project_root)
 
-        return cls._generators[generator_type](
-            project_root
+        if generator_type == "service":
+            return ServiceGenerator(project_root)
+
+        if generator_type == "plugin":
+            return PluginGenerator(project_root)
+
+        raise ValueError(
+            f"Unknown generator: {generator_type}"
         )
