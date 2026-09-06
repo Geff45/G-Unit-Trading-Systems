@@ -6,6 +6,7 @@ from .module_loader import ModuleLoader
 from .module_manager import ModuleManager
 from .module_registry import ModuleRegistry
 from .module_state import ModuleState
+from .trading_engine_module import TradingEngineModule
 
 __all__ = [
     "Module",
@@ -16,4 +17,5 @@ __all__ = [
     "ModuleManager",
     "ModuleRegistry",
     "ModuleState",
+    "TradingEngineModule",
 ]
