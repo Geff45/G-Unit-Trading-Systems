@@ -9,6 +9,20 @@ class MarketDataService:
     Implementation will be introduced by later milestones.
     """
 
+    @property
+    def name(self) -> str:
+        return "MarketDataService"
+
+    @property
+    def version(self) -> str:
+        return "1.0.0"
+
+    def get_latest_price(self, symbol: str):
+        if not symbol or not symbol.strip():
+            raise ValueError("symbol must not be empty")
+
+        raise NotImplementedError
+
 
 class MarketDataModule(Module):
     """
