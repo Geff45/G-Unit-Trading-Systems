@@ -19,6 +19,15 @@ class ModuleManager:
     def add(self, module: Module) -> None:
         self._modules.append(module)
 
+    def configure(self, context: ModuleContext) -> None:
+        """
+        Configure all registered modules using the shared context.
+
+        Modules are configured in registration order.
+        """
+        for module in self._modules:
+            module.configure(context)
+
     def start(self, context: ModuleContext) -> None:
         for module in self._modules:
             module.start(context)
