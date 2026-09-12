@@ -13,6 +13,11 @@ class UnavailableMarketDataProvider(MarketDataProvider):
             "No market data provider implementation is configured"
         )
 
+    def get_latest_snapshot(self, symbol: str):
+        raise NotImplementedError(
+            "No market data provider implementation is configured"
+        )
+
 
 class MarketDataService:
     """
@@ -35,6 +40,12 @@ class MarketDataService:
             raise ValueError("symbol must not be empty")
 
         return self._provider.get_latest_price(symbol)
+
+    def get_latest_snapshot(self, symbol: str):
+        if not symbol or not symbol.strip():
+            raise ValueError("symbol must not be empty")
+
+        return self._provider.get_latest_snapshot(symbol)
 
 
 class MarketDataModule(Module):

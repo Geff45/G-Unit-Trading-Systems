@@ -15,3 +15,13 @@ class MarketDataProvider(ABC):
         in later milestones.
         """
         raise NotImplementedError
+
+    @abstractmethod
+    def get_latest_snapshot(self, symbol: str):
+        """
+        Return the latest market-data snapshot for a symbol.
+
+        Concrete providers will implement the data-source behavior
+        in later milestones.
+        """
+        raise NotImplementedError
