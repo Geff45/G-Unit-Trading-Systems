@@ -1,13 +1,26 @@
 from gunit.di import ServiceLifetime
 from gunit.modules import Module, ModuleContext
+from gunit.modules.market_data_provider import MarketDataProvider
+
+
+class UnavailableMarketDataProvider(MarketDataProvider):
+    """
+    Default provider until a concrete market-data source is integrated.
+    """
+
+    def get_latest_price(self, symbol: str):
+        raise NotImplementedError(
+            "No market data provider implementation is configured"
+        )
 
 
 class MarketDataService:
     """
-    Minimal market-data service boundary.
-
-    Implementation will be introduced by later milestones.
+    Market-data service boundary backed by a provider.
     """
+
+    def __init__(self, provider: MarketDataProvider) -> None:
+        self._provider = provider
 
     @property
     def name(self) -> str:
@@ -21,7 +34,7 @@ class MarketDataService:
         if not symbol or not symbol.strip():
             raise ValueError("symbol must not be empty")
 
-        raise NotImplementedError
+        return self._provider.get_latest_price(symbol)
 
 
 class MarketDataModule(Module):
@@ -38,6 +51,13 @@ class MarketDataModule(Module):
         return "1.0.0"
 
     def configure(self, context: ModuleContext) -> None:
+        if not context.services.contains(MarketDataProvider):
+            context.services.add(
+                MarketDataProvider,
+                UnavailableMarketDataProvider,
+                lifetime=ServiceLifetime.SINGLETON,
+            )
+
         context.services.add(
             MarketDataService,
             MarketDataService,
