@@ -7,6 +7,10 @@ from .module_manager import ModuleManager
 from .module_registry import ModuleRegistry
 from .module_state import ModuleState
 from .trading_engine_module import TradingEngineModule
+from .market_data_module import MarketDataModule, MarketDataService
+from .market_data_provider import MarketDataProvider
+from .market_data_snapshot import MarketDataSnapshot
+from .in_memory_market_data_provider import InMemoryMarketDataProvider
 
 __all__ = [
     "Module",
@@ -18,4 +22,9 @@ __all__ = [
     "ModuleRegistry",
     "ModuleState",
     "TradingEngineModule",
+    "MarketDataModule",
+    "MarketDataService",
+    "MarketDataProvider",
+    "MarketDataSnapshot",
+    "InMemoryMarketDataProvider",
 ]
