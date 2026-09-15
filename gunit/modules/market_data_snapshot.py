@@ -1,3 +1,4 @@
+import math
 from dataclasses import dataclass
 
 
@@ -18,3 +19,6 @@ class MarketDataSnapshot:
             self.timestamp, (int, float)
         ):
             raise TypeError("timestamp must be numeric")
+
+        if not math.isfinite(self.timestamp):
+            raise ValueError("timestamp must be finite")
