@@ -1,131 +1,141 @@
 # G-Unit Trading Systems
 
-G-Unit Trading Systems is a modular software platform under development for building, integrating, and operating advanced trading-system infrastructure.
+G-Unit Trading Systems is a modular software platform under active development, designed to provide a structured foundation for market intelligence, trading infrastructure, risk management, and execution systems.
 
-The project combines the **Atlas platform** with the **Forge developer toolkit** to provide a structured foundation for configuration, dependency injection, services, hosting, lifecycle management, generators, CLI tooling, and future trading-system components.
+The project separates two major areas:
 
-> **Project status:** Foundation development
-> **Current milestone:** F-222
-> **Current checkpoint:** `b5aa612`
+- **ATLAS** — the market intelligence and trading platform.
+- **FORGE** — the developer toolkit for software development, command-line tooling, generators, and project scaffolding.
+
+The platform is being built incrementally using contract-driven development, automated testing, modular architecture, and controlled engineering milestones.
+
+> **Project status:** Active development
+> **Current engineering focus:** Market-data contracts, validation, data-source abstractions, and source-registry behavior
+> **Primary language:** Python
 
 ---
 
 ## Project Vision
 
-The long-term objective is to establish a robust, modular architecture capable of supporting sophisticated trading-system components while maintaining strong separation of concerns, testability, extensibility, and controlled lifecycle management.
+The long-term objective is to develop a modular, multi-asset platform capable of integrating market data from different sources, interpreting market conditions, supporting trading decisions, managing risk, and connecting to execution venues.
 
-The platform is being developed incrementally through contract-driven milestones.
+The architecture is intended to support:
+
+- Multiple asset classes and market-data providers.
+- Standardized data-source and integration contracts.
+- Market-state analysis and cross-market relationships.
+- Market intelligence and analytical components.
+- Trading and risk-management infrastructure.
+- Execution adapters for supported venues.
+- Testing, simulation, and backtesting capabilities.
+- Modular extension without unnecessarily coupling system components.
+
+These are architectural objectives, not a claim that every planned capability is already implemented or ready for live trading.
 
 ---
 
 ## Core Architecture
 
-### Atlas
+### ATLAS — Market Intelligence and Trading Platform
 
-Atlas is the application/platform foundation.
+ATLAS is responsible for the market-facing and trading-related capabilities of the system.
+
+Its architectural direction includes:
+
+- Market-data integration and validation.
+- Data-source abstractions and provider integration.
+- Instrument and market-state models.
+- Multi-asset market intelligence.
+- Cross-asset analysis and relationships.
+- Trading-system components.
+- Risk-management infrastructure.
+- Execution infrastructure and venue adapters.
+- Future terminal, simulation, and backtesting capabilities.
+
+ATLAS is designed to separate incoming data, normalized market representations, analytical logic, trading decisions, risk controls, and execution responsibilities.
+
+### FORGE — Developer Toolkit
+
+FORGE provides development tooling that supports the construction and maintenance of the wider platform.
 
 Its responsibilities include:
 
-* Configuration
-* Dependency Injection
-* Service management
-* Hosting
-* Application lifecycle
-* Service scopes
-* Hosted services
-* Future platform modules
+- Command-line interface infrastructure.
+- Command routing and dispatch.
+- Command registration.
+- Project and module generation.
+- Plugin generation.
+- Scaffolding and templates.
+- Developer diagnostics.
+- Supporting development workflows.
 
-### Forge
-
-Forge is the development and project-generation toolkit.
-
-Its responsibilities include:
-
-* Command-line tooling
-* Command routing
-* Command registration
-* Command dispatch
-* Project generation
-* Plugin generation
-* Scaffolding
-* Templates
-* Developer diagnostics
+FORGE remains a distinct development-tooling area rather than being treated as part of ATLAS's market-intelligence or trading responsibilities.
 
 ---
 
-## Current Foundation
+## Engineering Foundation
 
-The current implementation has completed the following contracts:
+The repository has established foundational infrastructure for modular Python applications, including work on:
 
-| Milestone | Component                  | Status     |
-| --------- | -------------------------- | ---------- |
-| F-212     | Configuration Foundation   | ✅ Complete |
-| F-213     | DI Foundation              | ✅ Complete |
-| F-214     | Service Contracts          | ✅ Complete |
-| F-215     | Service Registry           | ✅ Complete |
-| F-216     | Service Resolution         | ✅ Complete |
-| F-217     | Factory Registration       | ✅ Complete |
-| F-218     | Service Scope              | ✅ Complete |
-| F-219     | Service Lifecycle          | ✅ Complete |
-| F-220     | Host DI                    | ✅ Complete |
-| F-221     | Hosted Service DI          | ✅ Complete |
-| F-222     | Service Provider Lifecycle | ✅ Complete |
+- Configuration management.
+- Dependency injection and service registration.
+- Service descriptors and lifetimes.
+- Constructor and factory-based dependency resolution.
+- Service scopes and lifecycle management.
+- Hosting and hosted-service integration.
+- Command-line routing and dispatch.
+- Generators and scaffolding.
+- Automated tests and engineering documentation.
+
+The exact implementation status of individual capabilities should be verified against the source code, tests, and current engineering records.
 
 ---
 
-## Dependency Injection
+## Market Data Foundation
 
-The DI foundation supports:
+Market data is a major focus of the current development direction.
 
-* Service registration
-* Service descriptors
-* Singleton lifetime
-* Scoped lifetime
-* Transient lifetime
-* Factory registration
-* Constructor dependency resolution
-* Service scopes
-* Hosted-service resolution
-* Provider lifecycle management
-* Deterministic service cleanup
+The architecture is intended to provide consistent contracts between data providers, integrations, and the rest of ATLAS.
 
----
+Current development work includes:
 
-## Service Lifecycle
+- Data-source contracts.
+- Source-registry behavior.
+- Market-data snapshot validation.
+- Symbol validity.
+- Finite price and timestamp validation.
+- Consistent interfaces for integrating future data providers.
 
-The provider and scopes support controlled cleanup of services.
+The broader objective is to build a foundation that can support data from connected trading venues and external market-information sources while maintaining clear boundaries between providers and consuming components.
 
-Supported cleanup mechanisms include:
-
-* Context-manager exit
-* `close()`
-* `dispose()`
-
-Disposal is designed to be idempotent, and disposed providers/scopes reject further service resolution.
+**Important:** A defined contract does not automatically mean that a production provider, live feed, or complete market-data pipeline is already available.
 
 ---
 
-## Host Architecture
+## Dependency Injection and Lifecycle Management
 
-The host foundation integrates:
+The core foundation includes work on dependency injection and controlled service lifecycles.
 
-* Application services
-* Dependency Injection
-* Service providers
-* Service scopes
-* Hosted services
-* Startup lifecycle
-* Shutdown lifecycle
+The design covers:
 
-The architecture is designed so application components can be resolved through the same service infrastructure rather than relying exclusively on manual object construction.
+- Service registration and descriptors.
+- Singleton, scoped, and transient lifetimes.
+- Factory-based registration.
+- Constructor dependency resolution.
+- Service scopes.
+- Hosted-service integration.
+- Provider and scope cleanup.
+- Host startup and shutdown responsibilities.
+
+Lifecycle-related behavior is tested as part of the contract-driven development process. The precise guarantees of individual services should be confirmed against their current implementation and tests.
 
 ---
 
-## Forge CLI
+## FORGE CLI Structure
 
-Forge provides a command-oriented development interface.
+The FORGE command-line architecture separates interface concerns from command execution and generation logic.
 
-The current foundation includes:
+The relevant areas include:
 
 ```text
 forge/
@@ -136,44 +146,13 @@ forge/
 └── tests/
 ```
 
-The CLI architecture separates routing, command dispatch, commands, generators, and supporting framework infrastructure.
-
----
-
-## Testing
-
-The project uses `pytest` for automated testing.
-
-Current verified checkpoint:
-
-```text
-Python:  3.14.6
-pytest:  9.1.1
-
-244 tests collected
-244 tests passed
-0 tests failed
-```
-
-Run the test suite with:
-
-```powershell
-python -m pytest -v
-```
-
-For a shorter result:
-
-```powershell
-python -m pytest -q
-```
+This is an illustrative view of the FORGE structure, not a complete repository tree. The implementation may evolve as the toolkit develops.
 
 ---
 
 ## Development Workflow
 
-Development follows a contract-first approach.
-
-### Standard workflow
+Development follows a contract-first engineering approach.
 
 ```text
 Architecture
@@ -184,90 +163,114 @@ Test
     ↓
 Implementation
     ↓
-Regression
+Regression testing
     ↓
 Verification
+    ↓
+Review
     ↓
 Commit
     ↓
 Documentation
 ```
 
-Each significant architectural milestone should have corresponding tests and documentation.
+Significant changes should be supported by appropriate tests and documentation. New milestones should follow an identified architectural or capability gap rather than being assigned arbitrarily.
+
+### Local verification
+
+Run the test suite from the repository root:
+
+```powershell
+python -m pytest -q
+```
+
+For more detailed test output:
+
+```powershell
+python -m pytest -v
+```
+
+Check the working tree before preparing a commit:
+
+```powershell
+git status --short
+```
+
+Check the diff for whitespace errors:
+
+```powershell
+git diff --check
+```
+
+These commands help verify the current working tree. A test result should be reported as verified only after the test command has actually completed.
 
 ---
 
 ## Repository Discipline
 
-Before committing a production change:
+G-Unit follows a controlled development workflow intended to protect working code and maintain traceable changes.
 
-```powershell
-git status --short
-git diff --check
-python -m pytest -q
-git diff --cached --check
-```
-
-Changes should be reviewed before being committed.
-
-Backups may be retained during active development for rollback and recovery purposes, but should not be accidentally included in production commits.
-
----
-
-## Current Checkpoint
-
-The current foundation was committed as:
-
-```text
-b5aa612
-feat: complete Forge CLI and DI foundation through F-222
-```
-
-Verification:
-
-```text
-244 passed
-```
+- Review changes before committing.
+- Run relevant tests after implementation changes.
+- Keep architecture and milestone documentation aligned with actual progress.
+- Preserve uncommitted work that has not been approved for inclusion.
+- Inspect backup and recovery files before deciding whether they can be removed.
+- Avoid including unrelated changes in a commit.
+- Do not treat a successful test run as proof that the entire platform is production-ready.
 
 ---
 
 ## Project Status
 
-### Completed
+G-Unit Trading Systems is under active development. Its architecture and implementation are being extended incrementally.
 
-* Forge CLI foundation
-* Command routing
-* Command registry
-* Command dispatch
-* Generators
-* Scaffolding
-* Configuration foundation
-* Dependency Injection foundation
-* Service registration
-* Service resolution
-* Factory registration
-* Service scopes
-* Service lifecycle
-* Host DI
-* Hosted-service DI
-* Provider lifecycle
+### Established foundation areas
 
-### In Development
+- Core application infrastructure.
+- Configuration and dependency-injection foundations.
+- Service and hosting lifecycle components.
+- FORGE CLI and generator infrastructure.
+- Market-data contracts and validation work.
+- Data-source and source-registry contracts.
+- Automated testing and engineering documentation.
 
-The next development phases will extend the platform beyond the current foundation while preserving the established contract-first architecture.
+### Future development direction
 
-Specific future milestones will be defined in `ROADMAP.md`.
+Planned architectural areas include:
+
+- Broader market-data provider integration.
+- Instrument modeling.
+- Multi-asset data processing.
+- Cross-asset relationships.
+- Global market-state analysis.
+- Market-intelligence components.
+- Trading and risk engines.
+- Execution and venue adapters.
+- ATLAS terminal capabilities.
+- Backtesting and simulation.
+
+These items describe the development direction; they should not be interpreted as completed features.
+
+The authoritative architecture, project blueprint, current-state record, and milestone documentation should be consulted for detailed engineering decisions and the next approved milestone.
 
 ---
 
 ## Documentation
 
-| File             | Purpose                                     |
-| ---------------- | ------------------------------------------- |
-| `README.md`      | Project overview and developer entry point  |
-| `ROADMAP.md`     | Development milestones and future direction |
-| `BUILD-MANIFEST` | Verified build and milestone record         |
-| `LICENSE`        | Software ownership and usage terms          |
+Important project records include:
+
+| Document | Purpose |
+|---|---|
+| `README.md` | Project overview and entry point |
+| `docs/architecture/ARCHITECTURE.md` | Architectural boundaries and system design |
+| `docs/engineering/PROJECT_BLUEPRINT.md` | Authoritative project direction and development blueprint |
+| `docs/roadmap/CURRENT_STATE.md` | Recorded engineering state |
+| `docs/roadmap/MILESTONES.md` | Milestone history and development planning |
+| `docs/engineering/DEVELOPMENT_WORKFLOW.md` | Development workflow |
+| `docs/engineering/CHANGE_CONTROL.md` | Change-control guidance |
+| `LICENSE` | Applicable software license terms |
+
+Use the actual files in the repository as the source of truth if paths or document names change.
 
 ---
 
@@ -275,12 +278,10 @@ Specific future milestones will be defined in `ROADMAP.md`.
 
 G-Unit Trading Systems is a software-development project.
 
-Completion of framework or infrastructure components does not imply that any trading strategy, financial model, execution system, or risk-management system is complete, validated, or suitable for live financial use.
+The existence of market-data, trading, risk, or execution infrastructure does not establish that a trading strategy is profitable or that any component is suitable for live financial use. Data quality, execution behavior, operational reliability, security, and risk controls must be independently validated before deployment.
 
 ---
 
 ## License
 
-G-Unit Trading Systems is proprietary software unless otherwise expressly stated.
-
-See `LICENSE` for the applicable terms.
+See `LICENSE` for the applicable terms governing the software's use and distribution.
